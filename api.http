@@ -1,0 +1,9 @@
+POST http://localhost:3333/events
+Content-Type: application/json
+
+{
+    "title": "nlw-update",
+    "details": "Evento voltado para programação e quem quer se atualizar",
+    "maximumAttendees": 100
+
+}
