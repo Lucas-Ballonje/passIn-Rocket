@@ -2,8 +2,21 @@ POST http://localhost:3333/events
 Content-Type: application/json
 
 {
-    "title": "nlw-update",
-    "details": "Evento voltado para programação e quem quer se atualizar",
-    "maximumAttendees": 100
+    "title": "Novo Evento",
+    "details": "Sem descricao",
+    "maximumAttendees": 1
 
 }
+
+###
+
+POST http://localhost:3333/events/5a9a75b8-70d7-4dd3-a8f4-a3f1075afd38/attendees
+Content-Type: application/json
+
+{
+    "name": "Lucas Ballonje",
+    "email": "lucasballonje13@gmail.com"
+}
+
+###
+GET http://localhost:3333/events/5a9a75b8-70d7-4dd3-a8f4-a3f1075afd38
