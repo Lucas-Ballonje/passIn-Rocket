@@ -7,23 +7,12 @@ import { prisma } from "../lib/prisma";
 export async function getEvent(app: FastifyInstance){
     app
     .withTypeProvider<ZodTypeProvider>()
-    .get("/events/:eventId", {
+    .get("/events/:eventId", {    
         schema: {
             params: z.object({
-                eventId: z.string().uuid(),
+                eventId: z.string().uuid()
             }),
-            response: {
-                200: {
-                    event: z.object({
-                        id: z.string().uuid(),
-                        title: z.string(),
-                        slug: z.string(),
-                        details: z.string().nullable(),
-                        maximumAttendees: z.number().int().nullable(),
-                        attendeesAmount: z.number().int(),
-                    })
-                }
-            },
+            response: {},
         }
     }, async (req, reply) => {
         const { eventId } = req.params
@@ -38,27 +27,27 @@ export async function getEvent(app: FastifyInstance){
                 _count: {
                     select: {
                         Attendees: true,
-                    }
-                }
-            },            
+                    },
+                },
+            },
             where: {
                 id: eventId,
             }
         })
 
         if(event === null){
-            throw new Error("Event not Found");
+            throw new Error("Event not found")
         }
 
-        return reply.send({
-             event: {
+        return reply.send({ 
+            event: {
                 id: event.id,
                 title: event.title,
                 slug: event.slug,
                 details: event.details,
                 maximumAttendees: event.maximumAttendees,
-                attendeesAmount: event._count.Attendees
-             }
-        })
+                attendeesAmount: event._count.Attendees,
+            }
+         })
     })
 }
